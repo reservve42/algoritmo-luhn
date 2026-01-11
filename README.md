@@ -1,3 +1,4 @@
+#Invariantes Modulares, Funções Não-Invertíveis e Criptografia de Curva Elíptica Aplicada a Sistemas de Pagamento
 
 Quando se fala em segurança de cartões de crédito, gateways de pagamento e autenticação de senhas, a primeira impressão de muitos é que há uma espécie de “mágica” acontecendo: você digita seu número, sua senha, o cartão passa na máquina e pronto, você é autorizado ou não. A verdade é que não existe magia alguma; existe matemática aplicada de forma engenhosa. O que diferencia sistemas confiáveis de sistemas vulneráveis é o entendimento profundo de invariantes matemáticos, congruências, funções não-invertíveis e operações criptográficas. Sistemas modernos **não verificam segredos**, eles verificam **propriedades que só os elementos corretos podem satisfazer**. E é isso que garante que, mesmo sem conhecer sua senha ou sua chave privada, o sistema saiba se sua entrada está correta.
 

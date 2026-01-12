@@ -76,7 +76,7 @@ Com a introdução dos cartões com chip, essa lógica evoluiu para curvas elíp
 
 ![...](equation/3.png)
 
-O verificador utiliza apenas a chave pública ***Q = kG*** e a assinatura ***(r , s)*** para validar se a equação é satisfeita. O segredo *k* nunca é revelado; apenas a **propriedade matemática que só *k* satisfaz** é verificada. Em ECDH, o segredo compartilhado ***S = KaKbG***  é calculado usando apenas valores públicos, garantindo que apenas as chaves corretas produzam o mesmo resultado. Isso é a materialização prática da frase: ***f(x) = c sem conhecer x***.
+O verificador utiliza apenas a chave pública ***Q = kG*** e a assinatura ***(r , s)*** para validar se a equação é satisfeita. O segredo *k* nunca é revelado; apenas a **propriedade matemática que só *k* satisfaz** é verificada. Em ECDH, o segredo compartilhado ![...](equation/9(1).png)  é calculado usando apenas valores públicos, garantindo que apenas as chaves corretas produzam o mesmo resultado. Isso é a materialização prática da frase: ***f(x) = c sem conhecer x***.
 
 Em R, podemos simular a verificação de invariantes para estudar comportamento de chaves, assinaturas e hashes:
 

@@ -31,9 +31,9 @@ int luhn(const char *num) {
 }
 
 int main() {
-    const char *cartao = "4539148803436467";
+    const char *card = "4539148803436467";
 
-    if (luhn(cartao)) {
+    if (luhn(card)) {
         printf("Valid number\n");
     } else {
         printf("Invalid number\n");

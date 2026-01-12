@@ -4,7 +4,7 @@ Quando se fala em segurança de cartões de crédito, gateways de pagamento e au
 
 Para começar a entender essa dinâmica, é essencial voltar no tempo até 1954, quando Hans Peter Luhn, engenheiro da IBM, propôs um algoritmo para validar números de cartões de crédito. O algoritmo de Luhn é aparentemente simples, mas revela uma profundidade matemática elegante quando analisado do ponto de vista de teoria dos números. A ideia central é transformar uma sequência de dígitos *d1​, d2​ ... dn* em um somatório ponderado *S* tal que *S ≡ 0 mod (10)*. Formalmente seja: 
 
-![...](equation/1 1.svg)
+![...](equation/1%201.svg)
 
 Onde a função *f(di)* aplica um peso alternado (normalmente dobrando dígitos alternados, subtraindo 9 se o resultado for maior que 9). O número é aceito se *S* pertencer à classe de congruência 0 módulo 10. Aqui já se vê um padrão fundamental: **não se verifica o número em si, mas se ele satisfaz uma condição estrutural invariável**. Essa ideia de “verificar uma propriedade e não o objeto” é a base de toda a criptografia aplicada em cartões. 
 
@@ -68,13 +68,13 @@ luhn_vector <- function(numero) {
 
 O interessante é que o Luhn não garante que o cartão exista; ele apenas filtra entradas inválidas. É uma **verificação estrutural, não ontológica**. Essa mesma lógica se estende para senhas, mas com maior complexidade. Um sistema de autenticação nunca armazena sua senha *x*. Ele armazena *H(x)*, onde *H* é uma função hash criptográfica resistente a colisões. Para verificar se a entrada *x′* está correta, o sistema testa:
 
-![[lagrida_latex_editor (1).png]]
+![...](equation/lagrida_latex_editor%20(1).png)
 
 O sistema nunca precisa conhecer *x*, apenas se a função hash aplicada à entrada corresponde ao invariante armazenado. Novamente, vemos a ideia central: **verificar uma propriedade invariável, não o segredo em si**.
 
 Com a introdução dos cartões com chip, essa lógica evoluiu para curvas elípticas e funções de difícil inversão. Protocolos como ECDSA (Elliptic Curve Digital Signature Algorithm) e ECDH (Elliptic Curve Diffie-Hellman) aplicam operações matemáticas sobre grupos abelianos finitos definidos por equações da forma ***y² = x³ + ax + b*** sobre corpos finitos. A assinatura digital de um cartão envolve gerar ***(r , s)*** tal que: 
 
-![[3.png]]
+![...](equation/3.png)
 
 O verificador utiliza apenas a chave pública ***Q = kG*** e a assinatura ***(r , s)*** para validar se a equação é satisfeita. O segredo *k* nunca é revelado; apenas a **propriedade matemática que só *k* satisfaz** é verificada. Em ECDH, o segredo compartilhado ***S = KaKbG***  é calculado usando apenas valores públicos, garantindo que apenas as chaves corretas produzam o mesmo resultado. Isso é a materialização prática da frase: ***f(x) = c sem conhecer x***.
 
@@ -111,15 +111,15 @@ Até aqui estabelecemos a premissa central: *sistemas modernos não precisam con
 
 Quando você insere um cartão, seja físico ou virtual, o dispositivo inicia uma sequência de operações que podem ser interpretadas como **uma cadeia de verificação de invariantes**. Primeiro, o número do cartão passa pelo Luhn, garantindo integridade sintática. Em seguida, o chip realiza operações criptográficas locais. Para ECDSA, o cartão gera uma assinatura ***(r , s)*** sobre uma mensagem *m* (que pode incluir o valor da transação, timestamp e identificação do terminal). Formalmente: 
 
-![[4.png]]
+![...](equation/4.png)
 
 O terminal recebe ***(r , s)*** e, com a chave pública ***Q = kG*** verifica se:
 
-![[5.png]]
+![...](equation/5.png)
 
 Se a equação fecha, a assinatura é válida e o cartão é autenticado. Note que **nenhuma chave privada foi exposta**, apenas a relação invariável foi satisfeita. Essa é a razão pela qual a comunicação segura em gateways não precisa “conhecer sua senha”, tudo é transformado em invariantes.
 
-Além disso, em protocolos de troca de chave como ECDH, duas partes (terminal e banco) derivam um segredo compartilhado ![[9(1).png]] usando apenas chaves públicas. A segurança desse processo depende da dificuldade do **logaritmo discreto em curvas elípticas**, ou seja, não existe algoritmo eficiente para recuperar *Ka* ou *Kb*​ apenas conhecendo *S* e *G*.
+Além disso, em protocolos de troca de chave como ECDH, duas partes (terminal e banco) derivam um segredo compartilhado ![...](equation/9(1).png) usando apenas chaves públicas. A segurança desse processo depende da dificuldade do **logaritmo discreto em curvas elípticas**, ou seja, não existe algoritmo eficiente para recuperar *Ka* ou *Kb*​ apenas conhecendo *S* e *G*.
 
 Do ponto de vista computacional, é possível simular essas operações em R para entender probabilidades de colisão ou sucesso de ataque de força bruta. Por exemplo, podemos calcular a taxa de sucesso de tentativa de adivinhação de chaves simplificadas:
 
@@ -180,7 +180,7 @@ Comecemos desfazendo um erro comum e eu gosto de refoçar: ***ECDSA e ECDH* não
 Considere uma curva elíptica definida sobre um corpo finito:
 
 
-![[6.png]]
+![...](equation/6.png)
 
 
 onde *p* é primo grande. O conjunto de pontos ***E(Fp)***, junto com o ponto no infinito, forma um grupo abeliano finito. 
@@ -188,11 +188,11 @@ onde *p* é primo grande. O conjunto de pontos ***E(Fp)***, junto com o ponto no
 Existe um ponto gerador ***G*** de ordem ***n***. A chave privada é um inteiro:
 
 
-![[7.png]]
+![...](equation/7.png)
 
 e a chave pública é: 
 
-![[8.png]]
+![...](equation/8.png)
 
 Aqui está o primeiro invariante fundamental:
 
@@ -203,14 +203,14 @@ Isso é **Elliptic Curve Discrete Logarithm Problem (ECDLP)**.
 ---
 #### ECDH: acordo sem troca de segredo?
 
-Duas partes escolhem chaves privadas: ![[10(1).png]] e ![[11(1).png]]  
+Duas partes escolhem chaves privadas: ![...](equation/10(1).png) e ![...](equation/11(1).png)  
 
-![[12.png]]
+![...](equation/12.png)
 
 o segredo compartilhado é: 
 
 
-![[13.png]]
+![...](equation/13.png)
 
 O sistema nunca verifica *Ka* e *Kb*​. Ele verifica ***a igualdade estrutural do ponto derivado***.
 
@@ -219,17 +219,17 @@ O sistema nunca verifica *Ka* e *Kb*​. Ele verifica ***a igualdade estrutural 
 
 Na assinatura ECDSA, o cartão (ou chip) escolhe um nonce aleatório *r*
 
-![[14.png]]
+![...](equation/14.png)
 
 Define-se: 
 
-![[15.png]]
+![...](equation/15.png)
 
-A assinatura é o par ![[16.png]]
+A assinatura é o par ![...](equation/16.png)
 
 A verificação não tenta recuperar *k*. Ela testa se a seguinte identidade se sustenta:
 
-![[17.png]]
+![...](equation/17.png)
 
 ---
 ### Simulações em R: por que força bruta não escala
@@ -275,25 +275,25 @@ Curvas mal escolhidas introduzem **atalhos algébricos**. Curvas bem escolhidas 
 
 ## Referências
 
-Luhn, H. P. (1954). *Computer for Verifying Numbers*. IBM Technical Disclosure Bulletin.
-Knuth, D. E. (1998). *The Art of Computer Programming, Volume 2: Seminumerical Algorithms*. Addison-Wesley.
-ISO/IEC 7812. *Identification cards — Identification of issuers*.
-Menezes, A. J., van Oorschot, P. C., & Vanstone, S. A. (1996). *Handbook of Applied Cryptography*. CRC Press.
-Katz, J., & Lindell, Y. (2014). *Introduction to Modern Cryptography*. CRC Press.
-Koblitz, N. (1987). *Elliptic Curve Cryptosystems*. Mathematics of Computation.
-Miller, V. S. (1986). *Use of Elliptic Curves in Cryptography*. Advances in Cryptology — CRYPTO ’85.
-NIST FIPS 186-4. *Digital Signature Standard (DSS)*.
-SEC 1. *Elliptic Curve Cryptography*. Standards for Efficient Cryptography Group (SECG).
-EMVCo. *EMV Integrated Circuit Card Specifications for Payment Systems*.
-Anderson, R. (2020). *Security Engineering*. Wiley.
-Apple Inc. *Apple Pay Security and Privacy Overview*.
-Google. *Google Pay API Security Whitepaper*.
-Arora, S., & Barak, B. (2009). *Computational Complexity: A Modern Approach*. Cambridge University Press.
-Boneh, D., & Shoup, V. (2020). *A Graduate Course in Applied Cryptography*.
-Ramanujan, S. (1927). *Collected Papers of Srinivasa Ramanujan*. AMS.
-Granville, A. (2008). *Harald Cramér and the distribution of prime numbers*.
-Soundararajan, K. (2009). *The distribution of prime numbers*.
-Schneier, B. (1996). *Applied Cryptography*. Wiley.
+Luhn, H. P. (1954). *Computer for Verifying Numbers*. IBM Technical Disclosure Bulletin. /
+Knuth, D. E. (1998). *The Art of Computer Programming, Volume 2: Seminumerical Algorithms*. Addison-Wesley. /
+ISO/IEC 7812. *Identification cards — Identification of issuers*. / 
+Menezes, A. J., van Oorschot, P. C., & Vanstone, S. A. (1996). *Handbook of Applied Cryptography*. CRC Press. /
+Katz, J., & Lindell, Y. (2014). *Introduction to Modern Cryptography*. CRC Press. /
+Koblitz, N. (1987). *Elliptic Curve Cryptosystems*. Mathematics of Computation. /
+Miller, V. S. (1986). *Use of Elliptic Curves in Cryptography*. Advances in Cryptology — CRYPTO ’85. / 
+NIST FIPS 186-4. *Digital Signature Standard (DSS)*. /
+SEC 1. *Elliptic Curve Cryptography*. Standards for Efficient Cryptography Group (SECG). / 
+EMVCo. *EMV Integrated Circuit Card Specifications for Payment Systems*. /
+Anderson, R. (2020). *Security Engineering*. Wiley. /
+Apple Inc. *Apple Pay Security and Privacy Overview*. /
+Google. *Google Pay API Security Whitepaper*. /
+Arora, S., & Barak, B. (2009). *Computational Complexity: A Modern Approach*. Cambridge University Press. /
+Boneh, D., & Shoup, V. (2020). *A Graduate Course in Applied Cryptography*. /
+Ramanujan, S. (1927). *Collected Papers of Srinivasa Ramanujan*. AMS. /
+Granville, A. (2008). *Harald Cramér and the distribution of prime numbers*. / 
+Soundararajan, K. (2009). *The distribution of prime numbers*. /
+Schneier, B. (1996). *Applied Cryptography*. Wiley. /
 
 ## Ferramentas
 

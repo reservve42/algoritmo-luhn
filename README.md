@@ -4,7 +4,7 @@ Quando se fala em segurança de cartões de crédito, gateways de pagamento e au
 
 Para começar a entender essa dinâmica, é essencial voltar no tempo até 1954, quando Hans Peter Luhn, engenheiro da IBM, propôs um algoritmo para validar números de cartões de crédito. O algoritmo de Luhn é aparentemente simples, mas revela uma profundidade matemática elegante quando analisado do ponto de vista de teoria dos números. A ideia central é transformar uma sequência de dígitos *d1​, d2​ ... dn* em um somatório ponderado *S* tal que *S ≡ 0 mod (10)*. Formalmente seja: 
 
-![[1 1.svg]]
+![...](equation/1 1.svg)
 
 Onde a função *f(di)* aplica um peso alternado (normalmente dobrando dígitos alternados, subtraindo 9 se o resultado for maior que 9). O número é aceito se *S* pertencer à classe de congruência 0 módulo 10. Aqui já se vê um padrão fundamental: **não se verifica o número em si, mas se ele satisfaz uma condição estrutural invariável**. Essa ideia de “verificar uma propriedade e não o objeto” é a base de toda a criptografia aplicada em cartões. 
 
